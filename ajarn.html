@@ -2,12 +2,28 @@
 <html>
 
 
-<div id="root"></div>
+<div id="root" style="font-size: 7.0vh; text-align: center;"></div>
 
 <script>
-    ajarn_list = ["Peacely", "Non", "Aomsin", "PJ", "Baifern"];
+    ajarn_list = ["บดิน", "วรสิต", "Aomsin", "PJ", "Baifern"];
     container = document.getElementById("root");
-    container.innerHTML = "<h1>" + ajarn_list[Math.floor(Math.random() * ajarn_list.length)] + "</h1>";
+    AjarnHTML = "<h1>" + ajarn_list[Math.floor(Math.random() * ajarn_list.length)] + "</h1>";
+    
+    function countdown(){
+        if(seconds > 0){
+            seconds -= 1;
+            text = 'หันจอไปทางเพื่อน<br>'
+            newHTML = text + seconds;
+            container.innerHTML = newHTML;
+        } else {
+            container.innerHTML = AjarnHTML;
+            clearInterval();
+        }
+    }
+    
+    seconds = 6;
+    setInterval(countdown, 1000);
+
 </script>
-            
+
 </html>
