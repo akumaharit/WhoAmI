@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore/lite';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAByJnmkHFiY3u7LgSrKNijk345sCmjZBQ",
@@ -14,10 +14,22 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore();
 const theme = doc(firestore, 'main/theme');
 
-let themename = 'Music';
-let themearray = ['Test1','Test2'];
+// let themename = 'Music';
+// let themearray = ['Test1','Test2'];
+// let docData = {themename: themearray}
+// setDoc(theme, docData, {merge: true});
 
-let docData = {themename: themearray}
-setDoc(theme, docData, {merge: true});
+async function readDocument(){
+    const mySnapshot = await getDoc(theme);
+    if (mySnapshot.exists()){
+        const docData = mySnapshot.data();
+        const docData_JSON = JSON.stringify(docData);
+        const docData_obj = JSON.parse(docData_JSON);
+        const docData_obj_keys = Object.keys(docData_obj);
+        return docData_obj_keys;
+    }
+}
+let keys = readDocument();
+console.log(keys)
 
-getDoc()
+
